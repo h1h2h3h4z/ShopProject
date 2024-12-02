@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Status Table</title>
+<style>
+     body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        padding: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    table th, table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    table th {
+        background-color: #f2f2f2;
+    }
+    .online {
+        background-color: #c8e6c9; /* Light green */
+        color: green;
+        font-weight: bold;
+        border: 2px solid black;
+    }
+    .offline {
+        background-color: #ffcdd2; /* Light red */
+        color: red;
+        font-weight: bold;
+        border: 2px solid black
+    }
+    input[type="submit"] {
+        padding: 6px 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+    <h2>User Status Table</h2>
+    <div id="userTableContainer">
+        <!-- Table will be inserted here dynamically -->
+    </div>
+
+    <!-- jQuery Library (make sure to include it before your custom script) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function check_user(){
+            function check_login(){
+    $.ajax({
+        url:"checklogin.php",
+        dataType:"json",
+        success : function(data){
+            if (data.data[0].nouser){
+             window.location='login.php';
+      }
+        }
+    })
+}
+check_login();
+setInterval(check_login,5000);
+            $.ajax({
+                url : "checkuser.php",
+                dataType:"json",
+                success : function(data){
+                    console.log(data);
+                    if (data.role[0].goto=='user'){
+                        window.location='try.html';
+                    }
+                    
+                }
+            })
+        }
+        check_user();
+    $(document).ready(function() {
+        // Function to load the user status table via AJAX
+        function loadUserStatusTable() {
+            $.ajax({
+                url: 'admin.php', // PHP script that fetches users and their status
+                type: 'GET',
+                data:{},
+                success: function(response) {
+                    $('#userTableContainer').html(response); // Replace content of userTableContainer with fetched table
+                }
+                
+            });
+        }
+
+        // Initial load of user status table
+        loadUserStatusTable();
+
+        // Example of refreshing the table every 10 seconds (adjust as needed)
+        setInterval(function() {
+            loadUserStatusTable();
+        }, 100); // 10 seconds interval
+    });
+    </script>
+</body>
+</html>

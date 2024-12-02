@@ -1,0 +1,86 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Cart</title>
+ <link rel="stylesheet" href="css/mycart.css">
+</head>
+<body>
+  <div class="container">
+    <h1>My Cart</h1>
+    <div id="cart-content"></div>
+  </div>
+<div id="t"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script>
+    function check_login(){
+    $.ajax({
+        url:"checklogin.php",
+        dataType:"json",
+        success : function(data){
+            if (data.data[0].nouser){
+             window.location='login.php';
+      }
+        }
+    })
+}
+check_login();
+setInterval(check_login,5000);
+    $(document).ready(function() {
+      function check_role(){
+  $.ajax({
+    url:"checkrole.php",
+    dataType:"json",
+    success:function(data){
+      if (data.role[0].goto=='admin'){
+        window.location='admin.html';
+      }
+    }
+  });
+}
+
+check_role();
+        function auto(){
+          $.ajax({
+            type: "POST",
+            url: "mycart.php",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+              $('#cart-content').empty();
+              console.log(data);
+              var table = $("<table>");
+              table.append("<tr><th>Product Image</th><th>Product Description</th><th>Product Title</th><th>Price</th><th>number of item</th><th>Actions</th></tr>");
+              $.each(data.data,function(index,element){
+                var row = $("<tr>");
+                row.append(`<td><img src='${element.productphoto}' width='50' height='50'></td>`);
+                row.append(`<td>${element.describeofproduct}</td>`);
+                row.append(`<td>${element.title}</td>`);
+                row.append(`<td>${element.priceofproduct}</td>`);
+                row.append(`<td>${element.numberofitem}</td>`);
+                row.append(`<td><a href="buy.html"<button class="buy">Buy</button><button class="remove" data-pid="${element.productid}">Remove</button></td>`);
+                
+                table.append(row);
+              });
+              $("#cart-content").append(table);
+            }
+          });
+        }
+        $(document).on("click",'.remove',function(){
+            var productid=$(this).data("pid");
+           $.ajax({
+                method :"get",
+                url:"removefromcart.php",
+                data : { product : productid},
+                dataType:"",
+                success : function(data){
+                    console.log(data);
+                }
+           });
+        });
+        setInterval(auto, 1000);
+        auto();
+    });
+  </script>
+</body>
+</html>

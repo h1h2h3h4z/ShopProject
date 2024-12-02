@@ -1,0 +1,208 @@
+*{
+    font-family: 'Andale Mono', monospace;
+    font-weight: 400;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(219, 210, 197);
+}
+.container {
+    justify-content: flex-end; /* Align items to the right */
+    width: 50%; /* Fixed width of the container */
+    margin: 12px auto; /* Center the container */
+    height:auto;
+    background-color: white;
+    border-radius: 10px;
+}
+.themess{
+    display: none;
+}
+.img {
+    display: flex; /* Make the container a flex container */
+    max-width: 170px;
+    max-width: 100%;
+    justify-content: center;
+    
+}
+.messagetxt{
+    margin: 5px 0;
+    margin-left:25px;
+    width: 90%;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    background-color: red;
+    font-size: 20px;
+}
+.messagetxt2{
+    margin: 5px 0;
+    margin-left:25px;
+    width: 90%;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    background-color: red;
+    font-size: 20px;
+}
+.theerror{
+    
+    width: 150px;
+    text-align: right;
+    color: red;
+    margin-left: 50%;
+    
+}
+.userresp{
+    width: 150px;
+    text-align: right;
+    color: green;
+    margin-left: 50%;
+}
+#statuspass{
+    width: 150px;
+    text-align: right;
+    color: green;
+    margin-left: 50%;
+}
+.theimg{
+    width: 150px;
+    text-align: right;
+    color: green;
+    margin-left: 50%;
+}
+.email{
+    width: 150px;
+    text-align: right;
+    color: green;
+    margin-left: 50%;
+}
+.newpassresp{
+    width: 150px;
+    text-align: right;
+    color: red;
+    margin-left: 50%;
+}
+.newpasscresp{
+    width: 150px;
+    text-align: right;
+    color: red;
+    margin-left: 50%;
+}
+.left{
+    width: 50%;
+    padding: 5px;
+    margin-left: 0px;
+}
+.left input{
+    width: 90%;
+    padding: 9px;
+    background-color: rgb(204, 216, 213);
+    border-color: transparent;
+    border-radius: 4px;
+}
+.right{
+    
+    width: 50%;
+    padding: 5px;
+    margin-right: 0px;
+}
+.right input{
+    width: 90%;
+    padding: 9px;
+    background-color: rgb(204, 216, 213);
+    border-color: transparent;
+    border-radius: 4px;
+}
+.center{
+    display: flex;
+}
+.down{
+    width: 100%;
+    
+}
+.down input[type="submit"]{
+    width: 95%;
+    text-align: center;
+    margin: 7px;
+    margin-left: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: 'Orator Std'; 
+    cursor: pointer;
+    background-color: rgb(52, 52, 199);
+    color: white;
+    font-size: 20px;
+    transition: 0.4s;
+}
+.down input[type="button"]{
+    width: 95%;
+    text-align: center;
+    margin: 4px;
+    margin-left: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: rgb(189, 43, 43);
+    font-family: 'Orator Std'; 
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+
+}
+
+.aresure{
+    display: none;
+    margin-top: -500px;
+    position: absolute;
+    width: 30%;
+    justify-content: center;
+    align-content: center;
+    margin-left:450px;
+    height: 250px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 12px;
+    box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.5);
+}
+.h1{
+    text-align: center;
+}
+.yesno{
+    display: flex;
+    justify-content: center;
+    
+}
+.yesno button[type="submit"]{
+    width: 100px;
+    background-color: red;
+    color: white;
+    padding: 12px;
+    border-radius:8px ;
+    border-color: black;
+    transition: 0.5s;
+    font-size: 20px;
+    margin: 4px;
+    cursor: pointer;
+
+}
+
+.yesno button[type="submit"]:hover{
+    background-color: rgb(180, 54, 54);
+}
+.yesno button{
+    width: 100px;
+    background-color: rgb(25, 0, 255);
+    color: rgb(255, 255, 255);
+    border-radius:8px ;
+    border-color: black;
+    transition: 0.5s;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 4px;
+
+}
+.yesno button:hover{
+   
+    background-color: rgb(101, 67, 179);
+}

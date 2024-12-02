@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* General styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        /* Styling for the container holding the form */
+        .buycontainer {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styling for input fields */
+        .buycontainer input[type="text"],
+        .buycontainer input[type="number"] {
+            width: calc(100% - 20px); /* Adjust for padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        /* Styling for the buy button */
+        .buycontainer input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Styling for the price display */
+        .buycontainer #price-display {
+            margin-top: 15px;
+            font-size: 18px;
+            color: #333;
+        }
+        .noitem{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="buycontainer">
+        
+        
+    </div>
+
+    <script src="jquery/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+       $(document).ready(function() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    // Get the value of the 'action' parameter
+    const userid = urlParams.get('user_id');
+    const productid = urlParams.get('productid');
+    function auto(){
+        $(".buycontainer").empty();
+    $.ajax({
+        method: "get",
+        url: "buy.php",
+        data: { productid: productid, userid: userid },
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            var numberofitem = data.data[0].numberofitem;
+            var price = data.data[0].priceofproduct;
+            if(numberofitem>0){
+                var button= `<input type="button" value="Buy" id="buy">`;
+            }
+            else{
+                var button= `<h3 class="noitem">You cant buy this product no item avilable</h3>`;
+            }
+            // Append quantity input, plus and minus buttons, and price display
+            $(".buycontainer").append(`
+            <input type="text" name="" id="name" placeholder="Enter your full name">
+        <input type="text" name="" id="location" placeholder="Your location">
+        <input type="text" name="" id="street" placeholder="Your street">
+            
+            <h5>Number of items:</h5><input type="number" class="number" id="quantity" value="0" readonly><button class="plus">+</button><button class="minus">-</button>`);
+            $(".buycontainer").append(`<h3 id="price-display">The price = ${price}$</h3>`);
+            
+            // Update price display based on quantity input
+            // $(document).on("input", "#quantity", function () {
+            //     var quantity = $(this).val();
+            //     var totalPrice = price * quantity;
+            //     $("#price-display").text(`The price = ${totalPrice}$`);
+            // });
+
+            // Handle plus button click
+            $(document).on("click", ".plus", function() {
+                var currentValue = parseInt($(".number").val());
+                var newValue = currentValue + 1;
+                
+                if (newValue <= numberofitem) {
+                    $(".number").val(newValue);
+                    updatePrice(newValue);
+                } else {
+                    $(".number").val(1); // Reset to 1 if exceeds available items
+                    updatePrice(1);
+                }
+            });
+        
+            // Handle minus button click (optional)
+            $(document).on("click", ".minus", function() {
+                var currentValue = parseInt($(".number").val());
+                var newValue = currentValue - 1;
+                
+                if (newValue >= 0) {
+                    $(".number").val(newValue);
+                    updatePrice(newValue);
+                }
+            });
+
+            // Function to update price display based on quantity
+            function updatePrice(quantity) {
+                var totalPrice = price * quantity;
+                $("#price-display").text(`The price = ${totalPrice}$`);
+            }
+
+            // Initial price display
+            updatePrice(1);
+
+            // Buy button click event (if needed)
+            $(".buycontainer").append(`${button}`);
+            $(document).on("click","#buy",function(){
+                if ($("#quantity").val()>0){
+                var name = $("#name").val();
+                var location = $("#location").val();
+                var street = $("#street").val();
+                var numberofitem = $("#quantity").val();
+
+                var price=$("#price-display").text();
+                var integer = parseInt(price.replace(/\D/g, ''), 10);
+                var userreciever = userid;
+                console.log(name +" " + location + " "+street +" " +numberofitem +" "+ integer +" " +userreciever);
+                $.ajax({
+                    method : "post",
+                    url:"buyaction.php",
+                    data:{
+                        name:name ,
+                        location:location,
+                        street:street,
+                        numberofitem : numberofitem,
+                        price : integer,
+                        productid:productid,
+                        userreciever : userreciever
+                     },
+                    dataType:"",
+                    success: function(data){
+                        console.log(data);
+                        window.location="try.html";
+                    }
+                })
+                }else{
+                    $("#quantity").css({borderColor:"red"});
+                    
+                }
+            });
+        
+        }
+    
+    });
+    }
+    auto();
+       
+});
+function check_login(){
+    $.ajax({
+        url:"checklogin.php",
+        dataType:"json",
+        success : function(data){
+            if (data.data[0].nouser){
+             window.location='login.php';
+      }
+        }
+    })
+}
+check_login();
+setInterval(check_login,5000);
+function check_role(){
+  $.ajax({
+    url:"checkrole.php",
+    dataType:"json",
+    success:function(data){
+      if (data.role[0].goto=='admin'){
+        window.location='admin.html';
+      }
+    }
+  });
+}
+check_role();
+    </script>
+</body>
+</html>

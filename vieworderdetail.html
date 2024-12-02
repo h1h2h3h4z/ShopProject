@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        /* Container for order details */
+        .order-details {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 800px; /* Adjust as needed */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Styling for product photo */
+        .product-photo {
+            flex: 0 0 30%; /* 30% width for photo */
+            margin-right: 20px;
+        }
+    
+        .product-photo img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 5px;
+        }
+    
+        /* Styling for buyer information */
+        .buyer-info {
+            flex: 1; /* Take remaining width */
+        }
+    
+        .buyer-info p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+    
+        .buyer-info p strong {
+            font-weight: bold;
+        }
+    </style>
+    
+</head>
+<div class="orderdetals">
+
+</div>
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+      const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            // Get the value of the 'action' parameter
+            const actionValue = urlParams.get('buyid');
+            function check_role(){
+  $.ajax({
+    url:"checkrole.php",
+    dataType:"json",
+    success:function(data){
+      if (data.role[0].goto=='admin'){
+        window.location='admin.html';
+      }
+    }
+  });
+}
+check_role();
+function check_login(){
+    $.ajax({
+        url:"checklogin.php",
+        dataType:"json",
+        success : function(data){
+            if (data.data[0].nouser){
+             window.location='login.php';
+      }
+        }
+    })
+}
+check_login();
+setInterval(check_login,5000);
+    $.ajax({
+        method :"GET",
+        url:"vieworderdetail.php",
+        data : {buyid:actionValue},
+        success : function(data){
+            $(".orderdetals").html(data);
+        }
+    })
+</script>
+</body>
+</html>

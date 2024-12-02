@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container with Logo, Search, Login, and Signup</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="container0">
+    <div class="uldiv">
+        <nav>
+            <ul>
+                <li class="cata" id="cta">Catogories</li>
+                <li id="ct">Contact</li>
+            </ul>
+        </nav>
+    </div>
+    <div class="search" id="search">
+        <input type="text" class="search-box" id="search" name="search" placeholder="Search...">
+        <button type="submit" name="submit" class="search-button">Search</button>
+    </div>
+    <div class="dynamic-content"></div>
+
+    <div id="theclass" class="sup-menu-wrap">
+        <div class="sup-menu">
+            <div class="user-info">
+               
+            </div>
+            <hr>
+            <a href="editprofile.php" class="sub-menu-link">
+                <img src="images/profile.png">
+                <p>profile</p>
+                <span>></span>
+            </a>
+            <form method="post" action="logout.php">
+                <button class="logout" type="submit" name="logout">
+                    <a class="sub-menu-link" href="">
+                        <img name="logout" src="images/logout.png">
+                        <p>logout</p>
+                        <span>></span>
+                    </a>
+                </button>
+            </form>
+            <a href="addproduct.php" class="sub-menu-link" >
+                <img name="logout" src="images/plus.png">
+                <p>add product</p>
+                <span>></span>
+            </a>
+            <a href="myproduct.html" class="sub-menu-link" >
+                <img name="myproduct" src="images/plus.png">
+                <p>My Product</p>
+                <span>></span>
+            </a>
+            <a href="mycart.html" class="sub-menu-link" >
+                <img name="myproduct" src="images/wallet.png">
+                <p>My Cart</p>
+                <span>></span>
+            </a>
+        </div>
+    </div>
+    <div id="theclass2" class="nice-list">
+        <ul>
+            <li class="nice-list-item">
+                <a href="try.html?action=sports" class="nice-list-item-link">
+                    <div class="nice-list-item-content">
+                        <h3 class="nice-list-item-title">SPORTS</h3>
+                    </div>
+                </a>
+            </li>
+            
+            <li class="nice-list-item">
+                <a href="try.html?action=clothes" class="nice-list-item-link">
+                    <div class="nice-list-item-content">
+                        <h3 class="nice-list-item-title">CLOTHES</h3>
+                    </div>
+                </a>
+            </li>
+            <li class="nice-list-item">
+                <a href="try.html?action=shoes" class="nice-list-item-link">
+                    <div class="nice-list-item-content">
+                        <h3 class="nice-list-item-title">SHOES</h3>
+                    </div>
+                </a>
+            </li>
+            <li class="nice-list-item">
+                <a href="try.html?action=phones" class="nice-list-item-link">
+                    <div class="nice-list-item-content">
+                        <h3 class="nice-list-item-title">PHONES</h3>
+                    </div>
+                </a>
+            </li>
+            <li class="nice-list-item">
+                <a href="try.html?action=computers" class="nice-list-item-link">
+                    <div class="nice-list-item-content">
+                        <h3 class="nice-list-item-title">COMPUTERS</h3>
+                    </div>
+                </a>
+            </li>
+            <li class="nice-list-item">
+                <a href="try.html?action=medicine" class="nice-list-item-link">
+                    <div class="nice-list-item-content">
+                        <h3 class="nice-list-item-title">MEDICINE</h3>
+                    </div>
+                </a>
+            </li>
+            <li class="nice-list-item">
+                <a href="try.html?action=cars" class="nice-list-item-link">
+                    <div class="nice-list-item-content">
+                        <h3 class="nice-list-item-title">CARS</h3>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="notification">
+        
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function(){
+    // $(".search-box").on("input", function(){
+    //     var t = $(this).val();
+        
+    //     $.ajax({
+           
+    //        method :"post",
+    //        url : "search.php",
+    //        data: {text:t},
+    //        dataType:"json",
+           
+    //        success : function(data){
+        
+    //        }
+    //     });
+        
+    // });
+});
+function noti(){
+    
+$.ajax({
+    url:"viewnotifcation.php",
+    method :"post",
+    data :{},
+    dataType:"",
+    success: function(data){
+        $(".notification").html(data);
+    }
+});
+}
+setInterval(noti,5000);
+noti();
+      function auto2(){
+
+      
+        $.ajax({
+           
+            method :"get",
+            url : "headera.php",
+            data: {},
+            dataType:"json",
+            
+            success : function(data){
+                
+                $.each(data.data,function(index,element){
+                    console.log(data);
+                    $('.dynamic-content').empty();
+                    $('.user-info').empty();
+                    var el='';
+                    if(element.userexist){
+                        if((element.notification)>0){
+                            el=`<h1 class="h1noti">${element.notification}</h1>`;
+                        }
+                        else{
+                            el=`<h1>${element.notification}</h1>`;
+                        }
+                        var available = `
+                        <div class="noti">
+                            <h1 class="h1noti">${el}</h1>
+                            <div id="notif" class="logonot"><img src="images/notification.png"></div>
+                            <div class="hero">
+                                
+                                <img onclick="display()" class="logoimg" src="${element.photoofuser}">
+                            </div>
+                            </div>
+                        `;
+                        $('.dynamic-content').append(available);
+
+                        $('.user-info').append( `<img src="${element.photoofuser}">
+                        <h3>${element.username}</h3>`)
+                    }else{
+                        var notavailable=`
+                            <div class="theright">
+                                <div class="actions">
+                                    <div class="login_img">
+                                        <a class="login" href="login.php"><img src="">Login</a>
+                                    </div>
+                                    <div class="signupdiv">
+                                        <a class="signup" href="signup.php">Sign Up</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        $('.dynamic-content').empty();
+                        $('.dynamic-content').append(notavailable);
+                    }
+                });
+            }
+        });
+    
+    }
+    
+    setInterval(auto2, 5000);
+    
+    auto2();
+    $(document).on("click","#notif",function(){
+        $(".notification").slideToggle(500);
+        
+        
+        $.ajax({
+            url: "notification.php",
+            data:{},
+            method :"post",
+            dataType:"",
+            success: function(data){
+
+            }
+        });
+       
+    });
+    function check_role(){
+  $.ajax({
+    url:"checkrole.php",
+    dataType:"json",
+    success:function(data){
+        console.log(data);
+      if (data.role[0].goto=='admin'){
+        window.location='admin.html';
+      }
+    }
+  });
+}
+check_role();
+    let l =document.getElementById("theclass");
+        function display(){
+        l.classList.toggle("open-menu");
+        }
+        let z =document.getElementById("cta");
+        let contact =document.getElementById("ct");
+        let h =document.getElementById("theclass2");
+        let container2 =document.getElementById("container2");
+        
+        z.addEventListener('mouseenter', function() {
+            h.style.display="block";
+  });
+ 
+  contact.addEventListener('mouseenter', function() {
+    h.style.display="none";
+    
+  });
+  container2.addEventListener('mouseenter', function() {
+    h.style.display="none";
+    
+  });
+ 
+    </script>
+</body>
+</html>

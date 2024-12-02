@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product List</title>
+  <link rel="stylesheet" href="ht.css">
+</head>
+<body>
+  <div class="header1"></div>
+  <h1>Product List</h1>
+  <div id="product-list"></div>
+  <script src="jquery/jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      function list() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        return urlParams.get('action');
+      }
+function check_role(){
+  $.ajax({
+    url:"checkrole.php",
+    dataType:"json",
+    success:function(data){
+      if (data.role[0].goto=='admin'){
+        window.location='admin.html';
+      }
+    }
+  });
+}
+check_role();
+      function last_activity() {
+        $.ajax({
+          method: "post",
+          url: "lastactivity.php",
+          data: {},
+          dataType: "",
+          success: function(data) {
+            console.log(data);
+          }
+        });
+      }
+
+      setInterval(last_activity, 5000);
+      last_activity();
+
+      $('.header1').load("header.html");
+
+      function auto() {
+        var urla = list();//sports ,....
+        console.log(urla);
+        $.ajax({
+          type: "POST",
+          url: "indexaction.php",
+          data: { value : urla },
+          dataType: "json",
+          success: function(data) {
+            console.log(data);
+            $("#product-list").empty(); // Clear existing product list
+
+            $.each(data.mydataproduct, function(index, product) {
+              if (product.islogin) {
+                var addButtonHtml = '';
+                if (product.isInCart) {
+                  addButtonHtml = `<h4>saved</h4>`;
+                } else {
+                  addButtonHtml = `<button class="add-to-cart-button" data-id="${product.productid}">Add to Cart</button>`;
+                }
+
+                $("#product-list").append(`
+                  <div class="product-item">
+                    <div class="user-ifo">
+                    <a href="users.html?action=${product.user}">
+
+                      <div class="userphoto"><img src="${product.photoofuser}"></div>
+                      <div class="username"><h1>${product.username}</h1></div>
+                      </a>
+                    </div>
+                    <img src="${product.productphoto}" alt="${product.title}" class="product-image">
+                    <div class="product-info">
+                      <h2 class="product-title">${product.title}</h2>
+                      <p class="product-price">$${product.price}</p>
+                      <p class="product-description">${product.descripe}</p>
+                      <div class="product-actions">
+                        <a href="buyproduct.html?user_id=${product.user}&productid=${product.productid}" target="_blank"><button class="buy-button" data-id="${product.productid}">Buy</button></a>
+                        ${addButtonHtml}
+                        
+                      </div>
+                    </div>
+                  </div>
+                `);
+              } else {
+                var addButtonHtml = `<button class="add-to-cart-button" id="log_in" data-id="${product.productid}">Add to Cart</button>`;
+                var buybutton = ` <button class="buy-button" data-id="${product.productid}>Buy</button>`;
+
+                $("#product-list").append(`
+                  <div class="product-item">
+                    <div class="user-ifo">
+                    
+                        <div class="userphoto"><img src="${product.photoofuser}"></div>
+                        <div class="username"><h1>${product.username}</h1></div>
+                     
+                    </div>
+                    <img src="${product.productphoto}" alt="${product.title}" class="product-image">
+                    <div class="product-info">
+                      <h2 class="product-title">${product.title}</h2>
+                      <p class="product-price">$${product.price}</p>
+                      <p class="product-description">${product.descripe}</p>
+                      <div class="product-actions">
+                      
+                       ${addButtonHtml}
+                         ${buybutton}
+                        
+                      </div>
+                    </div>
+                  </div>
+                `);
+              }
+            });
+          },
+          error: function(xhr, status, error) {
+            console.error("AJAX request error:", error);
+            // Handle error response if needed
+          }
+        });
+      }
+
+      // Call auto() when the document is ready and every 5 seconds
+      setInterval(auto, 5000);
+      auto();
+    
+      // Event listener for "Add to Cart" buttons
+      $(document).on("click", ".add-to-cart-button", function() {
+        var productId = $(this).data("id");
+        var $button = $(this);
+        console.log("Clicked on product ID: " + productId);
+        $.ajax({
+          type: "POST",
+          url: "save.php",
+          data: { postid: productId },
+          success: function(data) {
+            $button.replaceWith("<h4>saved</h4>");
+            // Handle success response if needed
+},
+          error: function(xhr, status, error) {
+            console.error("AJAX request error:", error);
+            // Handle error response if needed
+          }
+        });
+        // You can add your cart handling logic here
+      });
+
+      $(document).on("click", "#log_in", function() {
+        window.location.href = "login.php";
+      });
+    });
+
+    $(document).ready(function() {
+      // Select elements using jQuery for consistent handling
+      let $cta = $("#cta");
+      let $ct = $("#ct");
+      let $container2 = $("#container2");
+      let $h = $("#theclass2");
+
+      // Event listener for mouseenter on #cta
+      $cta.on('mouseenter', function() {
+        $h.css("display", "block");
+        console.log("yes");
+      });
+
+      // Event listener for mouseenter on #ct
+      $ct.on('mouseenter', function() {
+        $h.css("display", "none");
+        console.log("yes");
+      });
+
+      // Event listener for mouseenter on #container2
+      $container2.on('mouseenter', function() {
+        $h.css("display", "none");
+        console.log("yes");
+      });
+    });
+  </script>
+</body>
+</html>

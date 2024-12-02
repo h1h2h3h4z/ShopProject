@@ -1,0 +1,26 @@
+div{
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #ddd;
+    width: 400px;
+}
+.show{
+    color: blue;
+    font-weight: 600;
+    transition: 1s;
+    width: 600px;
+}
+.class{
+    background-color: aqua;
+    width: 100px;
+    height: 100px;
+    justify-content: center;
+}
+a{
+    display: block;
+}
+img{
+    display: block;
+    margin: 20px;
+    display: none;
+}

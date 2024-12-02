@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Reset default table styles */
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .product-table th, .product-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .product-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+        .product-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .product-table tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+        .product-photo {
+            width: 80px; /* Adjust size of product photo */
+            height: auto;
+            display: block;
+            margin: 0 auto; /* Center the image within the cell */
+        }
+    </style>
+    
+</head>
+<div class="products">
+
+</div>
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function check_role(){
+  $.ajax({
+    url:"checkrole.php",
+    dataType:"json",
+    success:function(data){
+      if (data.role[0].goto=='admin'){
+        window.location='admin.html';
+      }
+    }
+  });
+}
+check_role();
+function check_login(){
+    $.ajax({
+        url:"checklogin.php",
+        dataType:"json",
+        success : function(data){
+            if (data.data[0].nouser){
+             window.location='login.php';
+      }
+        }
+    })
+}
+check_login();
+setInterval(check_login,5000);
+        function auto(){
+        $.ajax({
+            url:"myproduct.php",
+            method :"post",
+            data:{},
+            success:function(data){
+                $(".products").html(data);
+            }
+        });
+    }
+    setInterval(auto,5000);
+    auto();
+    </script>
+</body>
+</html>

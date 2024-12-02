@@ -1,0 +1,86 @@
+/* mycart.css */
+
+/* Container styles */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Table styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  td {
+    vertical-align: middle;
+  }
+  
+  /* Image styles */
+  .product-image {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  /* Button styles */
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #3e8e41;
+  }
+  
+  .buy {
+    background-color: #4CAF50;
+  }
+  
+  .remove {
+    background-color: #ff69b4;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 600px) {
+   .container {
+      margin: 20px;
+    }
+    table {
+      font-size: 14px;
+    }
+    th, td {
+      padding: 5px;
+    }
+   .product-image {
+      width: 30px;
+      height: 30px;
+    }
+    button {
+      padding: 5px 10px;
+    }
+  }

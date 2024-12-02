@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <input type="text" placeholder="add title">
+    <textarea placeholder="add content"></textarea>
+    <div style="height: 200px;">
+        <h2></h2>
+        <p></p>
+    </div>
+    <section>
+        <h1>hello jquery</h1>
+    </section>
+    <div class="circle"></div>
+    <span></span>
+    <script src="jquery.js"></script>
+    <script>
+        /**$("input").on("keydown",function(){
+            $("div").text("you keydown");
+        });
+        $("input").on("keypress",function(){
+            $("div").text("you press");
+        });**/
+        $("input").on("keyup",function(){
+            $("div h2").text($('input').val());
+        });
+        $("textarea").on("keyup",function(){
+            $("div p").text($(this).val());
+        });
+        /**$("textarea").one("click",function(){
+            $(this).select();
+        });
+        $("textarea").select(function(){
+            $("<p>this selected</p>").insertAfter($("textarea"));
+        });**/
+        $("section").height($(window).height()-300);
+        $(window).on("resize",function(){
+            var wi=$(window).width();
+        var hi =$(window).height();
+        console.log(wi+" x "+ hi);
+        if(wi>900){
+            console.log("2000px > ");
+        }
+        $("section").height($(window).height()-300);
+        });
+        $("html").click(function(e){
+            $(".circle").show().offset({
+                left : e.pageX,
+                top:e.pageY            });
+        });
+      let productone={
+        "name":"pc",
+        "price":3000
+      }
+      let producttwo={
+        "name":"pc",
+        "price":3000
+      }
+      let productthree={
+        "name":"pc",
+        "price":3000
+      }
+      console.log(productone.name);
+      console.log(producttwo.name);
+      console.log(productthree.name);
+    </script>
+</body>
+</html>

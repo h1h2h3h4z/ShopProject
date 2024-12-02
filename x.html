@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dynamic Text Display</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".search-box").on("input", function(){
+        var t = $(this).val();
+        console.log(t);
+        // Display the text somewhere on the page
+        $("#display-text").text(t);
+    });
+});
+</script>
+</head>
+<body>
+    <input type="text" class="search-box" placeholder="Type something...">
+    <div id="display-text"></div>
+</body>
+</html>

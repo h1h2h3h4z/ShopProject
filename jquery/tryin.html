@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="show">
+
+    </div>
+    <button onclick="getRes()">Get resp</button>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        /** 
+        $(function(){
+           $.getJSON('users.json',function(data){
+                console.log(data);
+            
+                var content='';
+                for(var x in data){
+                    content+= "<div>"+data[x].username+"</div>";
+                }
+                console.log(content);
+                $("#show").html(content);
+            });
+            $.ajax({
+                url : 'users.json',
+                dataType:'json',
+                cache: false,
+                success : function(data,status){
+                    console.log(data);
+                    console.log(status);
+                        /**var content='';
+                        for(var x in data){
+                            content+= "<div>"+data[x].username+"</div>";
+                        }
+                        console.log(content);
+                        $("#show").html(content);
+                        $.each(data,function(index){
+                            $("#show").append("<div>"+data[index].username+"</div>")
+                        });
+                },
+                error : function (xhr,textStatus,err){
+                    console.log(xhr);
+                    console.log(textStatus);
+                    console.log(err);
+                    
+                }
+
+            })
+            
+        });
+
+        /**
+        let myJson ='{"username":"hussein","age":20}';
+        let myJs=JSON.parse(myJson);
+        document.getElementById("name").innerHTML='My name is '+myJs.username;
+        document.getElementById("age").innerHTML='My age '+myJs.age;
+
+
+
+
+
+        let myJsObject ={username:"hussein",age:20};
+        let myJsonObject=JSON.stringify(myJsObject);
+        console.log(myJsObject);
+        console.log(typeof(myJsObject));
+
+
+        console.log(myJsonObject);
+        console.log(typeof(myJsonObject));**/
+
+function getRes(){
+    var myRequest= new XMLHttpRequest();
+    // on ready state change => function called when ready state change 
+    console.log(myRequest);
+        myRequest.onreadystatechange = function(){
+            //console.log(this.readyState +" "+ this.status);
+            /*
+            ready state => the state of the request 
+            [0] : request not Initialized
+            [1] : server connection stablished (sucess)
+            [2] : request recieved
+            [3] : processing request
+            [4] : request is finished and response is ready
+            status => Response status code
+            [200] OK
+            */
+           //if request is finshed and response is ready and status code is 200 (OK) output the respnonse text
+                if(this.readyState===4 && this.status===200){
+                    console.log(this.responseText);
+                    //console.log(JSON.parse(this.responseText));
+                    // convert ResponseText to JS Object
+                //     var myJsonObject= JSON.parse(this.responseText);
+                //     myText='';
+                //     //console.log(myJsonObject);
+                //     for(var i=0 ; i<myJsonObject.length;i++){
+                //         myText+=myJsonObject[i].username+'<br>';
+                //         //console.log(myJsonObject[i]);
+                //     }
+                //     console.log(myText);
+                //     document.getElementById("show").innerHTML=myText;
+                // }
+        }
+        
+    };
+        // XMLHttpRequest.open(Method , URL , Async ,user ,password)
+        //console.log(myRequest);
+        myRequest.open("GET","auth.php?name=ali",true);
+        myRequest.send();
+
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+    "username":"hussein",
+    "country":"lebanon",
+    "skills":[["html","css","java"],["html","css","java"],["html","css","p"]],
+    "address":{
+        "lebanon":"bent jebil",
+        "egypt":"loa",
+        "usa":"kana",
+        "germany":["one","two","three"]
+    },"Age":20,
+    "working":false,
+    "identity":null,
+    "skillsprogress":[{
+        "html":"60%",
+        "bugjs":"70%"
+    },
+    {
+        "css":"90%",
+        "sas":"20%"
+    }
+]
+}

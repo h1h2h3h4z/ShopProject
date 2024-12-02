@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section>
+    <div class="c">this div 1</div>
+    <div>this div 2</div>
+    <div>this div 3</div>
+    <div class="c">this div 4</div>
+    <div>this div 5</div>
+    <div><p lang="en">this div 6</p></div>
+    <div><p lang="ar">this div 7</p></div>
+</section>
+<div class="h">
+    <p>this is p</p>
+</div>
+<input type="text" name="" id="">
+
+<button type="button">click</button>
+
+<div class="class">
+hello
+</div>
+<input class ="txt" type="text" name="" id="">
+<button class="bt" type="button">click me</button>
+<a href="www.google.com" target="_blank">click</a>
+<img src="http://placehold.it/100/100" alt="">
+<div class="p"></div>
+    <script src="jquery.js"></script>
+    <script>
+        $("div:contains('6')").bind({
+            click : function(){ 
+                $(this).text("you click");
+            
+            },
+            dblclick : function(){ 
+                $(this).text("you dbl click");
+            },
+            mouseenter : function(){ 
+                $(this).text("you hover");
+            },
+            mouseleave : function(){ 
+                $(this).text("you un hover");
+            }
+        });
+        $('.h').bind("myE",function(e,myname,age){
+            $(this).text("hello "+myname+ " my age = "+ age);
+        });
+        $('button').click(function(){
+            $(".h").trigger("myE",[$('input[type="text"]').val(), "20"]);
+        });
+
+
+        $('.class').bind("hussein",function(event,h,w,bg,c){
+            $(this).height(h).width(w).css({backgroundColor:bg,color:c});
+        });
+        $(".bt").click(function(){
+            $('.class').trigger("hussein",[$('.txt').val(),"200px","red","gray"]);
+        });
+$('.class').bind({
+    click : function(){
+        $('<p>Iam a new paragraph</p>').insertBefore($(this));
+    }
+});
+$(".class").on("mouseenter mouseleave",function(){
+    $('.class').toggle();
+});
+
+$("body").on("click","a",function(event)
+{
+    event.preventDefault();
+    $("img").show();
+    if(event.isDefaultPrevented()){
+        $(".p").text("your link not work");
+    }
+});
+
+    </script>
+    
+</body>
+</html>

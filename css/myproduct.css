@@ -1,0 +1,54 @@
+body{
+    background-color: rgb(187, 206, 206);
+}
+.first{
+    border :3px solid black;
+    width: 50%;
+    height: auto;
+    margin-left: 30%;
+    
+}
+.first h1{
+    text-align: center;
+}
+.first th{
+    border:3px solid red;
+}
+.first table{
+    border: 0px solid black;
+    border-collapse: collapse;
+    width: 100%;
+    
+}
+.first table tr,td{
+    padding: 12px;
+    
+}
+.theimg{
+    width: 50px;
+    height: 50px;
+}
+.first input{
+    width: 100%;
+    padding: 4px;
+}
+.save{
+    width: 100%;
+    align-items: center;
+}
+.file-input {
+    display: none;
+}
+.ed{
+    background-color: green;
+    text-align: center;
+    color: white;
+    padding: 5px;
+    margin-left: 40%;
+    border-radius: 12px;
+    position: absolute;
+    margin-top: 23%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 400px;
+    font-weight: 600;
+}
